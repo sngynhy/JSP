@@ -4,11 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인 페이지</title>
+<title>Sign Up</title>
 </head>
 <body>
-
-	<h2>login</h2>
+<h2>HG airline</h2>
 	<form action="auth.jsp" method="post" name="form">
 		<table>
 			<tr>
@@ -22,6 +21,5 @@
 		</table>
 		<input type="submit" value="login" name="btn">
 	</form>
-
 </body>
 </html>
