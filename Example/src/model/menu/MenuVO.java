@@ -1,4 +1,4 @@
-package model;
+package model.menu;
 
 public class MenuVO {
 	
