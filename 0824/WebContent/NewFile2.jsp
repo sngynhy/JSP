@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 
 <!-- 계산하는 기능 함수 호출 -->
-<% if(request.getMethod().equals("POST")){calc.calculate(); }%>
+<% if(request.getMethod().equals("POST")){ calc.calculate(); } %>
 
 <html>
 <head>
@@ -24,7 +24,7 @@
 
 	<h2>계산기</h2>
 	<hr>
-	<form method="POST" name="form1"> <!-- 일반적으로 form 태그는 Post방식으로 전달 -->
+	<form method="post" name="form1"> <!-- 일반적으로 form 태그는 Post방식으로 전달 -->
 		<input type="text" name="num1" id="num1"> <!-- name == id -->
 		<select name="op">
 			<option selected>+</option>

@@ -5,5 +5,5 @@
 	// 메인 페이지가 열리기 전 먼저 시행되어야 함
 	// 컨트롤러 페이지에게 list.jsp를 보여달라고 요청
 	//  => action = list 와 같이 파라미터 이용!
-	pageContext.forward("control.jsp?action=list");
+	pageContext.forward("control.jsp?action=login");
 %>
