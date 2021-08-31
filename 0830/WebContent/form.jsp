@@ -25,10 +25,6 @@
 			<td><input type="text" name="content"></td>
 		</tr>
 		<tr>
-			<td>작성일</td>
-			<td><input type="date" name="date"></td>
-		</tr>
-		<tr>
 			<td colspan="2">
 				<input type="submit" value="글 등록">
 			</td>

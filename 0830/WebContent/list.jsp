@@ -7,6 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>글 목록 화면</title>
+<script type="text/javascript">
+	function check(mnum) {
+		writer = prompt("글 수정을 위해 작성자명을 입력하세요.");
+		document.location.href="control.jsp?action=edit&mnum=" + mnum + "&writer=" + writer;
+	}
+</script>
 </head>
 <body>
 
@@ -25,7 +31,8 @@
 			<tr>
 				<!-- 글 번호 클릭 시 상세페이지로 이동 -->
 										<!-- 파라미터로 edit과 mnum 넘겨주기 -->
-				<td><a href="control.jsp?action=edit&mnum=<%=vo.getMnum()%>"><%=vo.getMnum()%></a></td> <!-- 글 변경을 위한 비밀번호 확인 등의 인증작업 처리 필요! -->
+				<%-- <td><a href="control.jsp?action=edit&mnum=<%=vo.getMnum()%>"><%=vo.getMnum()%></a></td> --%>
+				<td><a href="javascript:check(<%=vo.getMnum()%>)"><%=vo.getMnum()%></a></td> <!-- 글 변경을 위한 비밀번호 확인 등의 인증작업 처리 필요! -->
 				<td><%= vo.getTitle() %></td>
 				<td><%= vo.getWriter() %></td>
 				<td><%= vo.getWdate() %></td>

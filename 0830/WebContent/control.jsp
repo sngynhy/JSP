@@ -41,9 +41,14 @@
 		
 	} else if (action.equals("edit")) {
 		// 사용자가 수정할 데이터 저장 selecOne
-		MessageVO data = messageDAO.getDBData(messageVO);
-		request.setAttribute("data", data);
-		pageContext.forward("edit.jsp");
+		if (request.getParameter("writer").equals("root")) { // writer==root면 관리자 인증 성공 => 게시글 수정 가능
+			MessageVO data = messageDAO.getDBData(messageVO);
+			request.setAttribute("data", data);
+			pageContext.forward("edit.jsp");
+		} else { // 만약 인증 실패 시 다시 뒤로가기로
+			out.println("<script>alert('관리자가 아닙니다!');history.go(-1);</script>");
+		}
+		
 		
 		// GUI 상에서 사용자가 잘못된 mnum를 건네는 경우는 없다!
 		// 하지만 url을 이용하여 잘못된 정보가 입력되면 "에러 페이지"로 처리!
