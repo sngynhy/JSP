@@ -20,8 +20,8 @@
 	<!-- 단, 콘텐츠가 자주 바뀌는 파일들은 부적합 ex) 뉴스 등 -->
 	<%@ include file = "menu.jsp" %>
 	<hr>
-	<div id="box1"><%@ include file = "news.jsp" %></div>
-	<div id="box2"><%@ include file = "shopping.jsp" %></div>
+<%-- 	<div id="box1"><%@ include file = "news.jsp" %></div>
+	<div id="box2"><%@ include file = "shopping.jsp" %></div> --%>
 	
 </body>
 </html>

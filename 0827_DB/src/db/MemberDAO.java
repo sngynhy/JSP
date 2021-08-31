@@ -4,28 +4,37 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MemberDAO {
 	
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	
-	public boolean signIn(MemberVO vo) {
+	public boolean signIn(MemberVO vo) { // 로그인 인증
 		conn = JDBC.getConnection();
 		String sql = "select * from member where id = ? and pw = ?";
 		
+		MemberVO data = null;
 		boolean exist = false;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getId());
 			pstmt.setString(2, vo.getPw());
 			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
+			if (rs.next()) {
+				data = new MemberVO();
+				data.setName(rs.getString("name"));
+				data.setId(rs.getString("id"));
+				data.setPw(rs.getString("pw"));
+				
 				exist = true;
 			}
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBC.Close(conn, pstmt);
 		}
 		return exist;
 	}
@@ -50,27 +59,27 @@ public class MemberDAO {
 		}
 	}
 	
-	public MemberVO selectAll() {
+	public ArrayList<MemberVO> selectAll() { // 모든 회원 정보 조회
 		conn = JDBC.getConnection();
 		String sql = "select * from member";
 		
-		MemberVO outvo = null;
-
+		ArrayList<MemberVO> datas = new ArrayList<MemberVO>();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				outvo = new MemberVO();
-				outvo.setName(rs.getString("name"));
-				outvo.setName(rs.getString("id"));
-				outvo.setName(rs.getString("pw"));
+				MemberVO data = new MemberVO();
+				data.setName(rs.getString("name"));
+				data.setId(rs.getString("id"));
+				data.setPw(rs.getString("pw"));
+				datas.add(data);
 			}
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			
+			JDBC.Close(conn, pstmt);
 		}
-		return outvo;
+		return datas;
 	}
 }
