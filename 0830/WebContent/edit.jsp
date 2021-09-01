@@ -21,7 +21,10 @@
 </script>
 </head>
 <body>
+<h2>게시글 수정</h2>	
+<hr>
 <a href="control.jsp?action=list">메인으로 돌아가기</a>
+<hr>
 <form action="control.jsp" method="post" name="form1">
 <!-- 사용자 눈에 보이지 않는 데이터는 hidden으로 처리 -->
 <input type="hidden" name="action" value="update">

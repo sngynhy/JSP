@@ -13,11 +13,10 @@
 			url: "control.jsp",
 			data: {
 				action : 'checkID',
-				id : $(".id").val() // $().val() : 값 가져오기
+				id : $("#id").val() // $().val() : 값 가져오기
 			},
-			dataType: "json",
 			success: function(data) { 
-				if (!data) { // 중복 데이터가 없을 때
+				if (data.trim()=="false") { // 중복 데이터가 없을 때, trim():문자열 공백제거
 					alert("사용 가능한 ID입니다.");
 				} else {
 					alert("ID가 이미 존재합니다. 다시 입력하세요.");
@@ -37,8 +36,8 @@
 		<table border="1">
 			<tr>
 				<td>ID</td>
-				<td><input type="text" name="id" class="id" required></td>
-				<td><button type="button" name="btn" onclick="checkID()">ID 중복확인</button></td>
+				<td><input type="text" name="id" id="id" required></td>
+				<td><button type="button" name="btn" id="idcheck" onclick="checkID()">ID 중복확인</button></td>
 			</tr>
 			<tr>
 				<td>PW</td>

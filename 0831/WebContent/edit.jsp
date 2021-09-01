@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <jsp:useBean id="data" class="model.message.MessageVO" scope="request"/>
+
 <!DOCTYPE html>
 <html>
 <head>
