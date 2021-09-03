@@ -58,8 +58,8 @@
 				<!-- 글 번호 클릭 시 상세페이지로 이동 -->
 										<!-- 파라미터로 edit과 mnum 넘겨주기 -->
 				<%-- <td><a href="control.jsp?action=edit&mnum=<%=vo.getMnum()%>"><%=vo.getMnum()%></a></td> --%>
-				<td><a href="javascript:check(<%=vo.getMnum()%>,'<%=vo.getId()%>')"><%=vo.getMnum()%></a></td> <!-- 글 변경을 위한 비밀번호 확인 등의 인증작업 처리 필요! -->
-				<td><%=vo.getTitle()%></td>	
+				<td><%=vo.getMnum()%></td> <!-- 글 변경을 위한 비밀번호 확인 등의 인증작업 처리 필요! -->
+				<td><a href="javascript:check(<%=vo.getMnum()%>,'<%=vo.getId()%>')"><%=vo.getTitle()%></a></td>	
 				<td><%=vo.getId()%></td>
 				<td><%=vo.getWdate()%></td>
 			</tr>

@@ -72,7 +72,9 @@
 								</div>
 								<span class="image"><img src="images/mushroom.ico" alt="버섯 아이콘" /></span>
 							</div>
+							
 						</section>
+						
 			<!-- Footer -->
 				<footer id="footer">
 					<section>

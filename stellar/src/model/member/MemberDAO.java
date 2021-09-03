@@ -60,7 +60,7 @@ public class MemberDAO {
 		return result;
 	}
 	
-	public boolean checkID(String id) {
+	public boolean checkID(String id) { // ID 중복 검사
 		
 		conn = JDBC.getConnection();
 		String sql = "select * from members where id = ?";
