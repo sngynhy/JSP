@@ -2,9 +2,9 @@
 
 
 <%
-	if (session.getAttribute("mem") != null) {
+	if (session.getAttribute("mem") != null) { // 로그인 상태
 %>
-	<input type="button" value="로그아웃" onClick="logout()">
+	<input type="button" value="logout" onClick="logout()">
 <%
 	}
 %>

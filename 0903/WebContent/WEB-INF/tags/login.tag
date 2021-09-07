@@ -1,9 +1,9 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 
 <%
-	if (session.getAttribute("mem") == null) {
+	if (session.getAttribute("mem") == null) { // 로그아웃 상태
 %>
-	<div class="content">
+
 <%
 	} else {
 %>

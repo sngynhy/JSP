@@ -47,8 +47,7 @@
 		/* request.setAttribute("search",request.getParameter("search") == null ? "" : request.getParameter("search")); */
 		pageContext.forward("list.jsp"); // 내장 객체가 액션 태그보다 사용 빈도가 높음 -> datas(데이터)와 함께 전달하기 위해 사용
 	} else if (action.equals("mylist")) {
-		ArrayList<MessageVO> datas = null;
-		datas = messageDAO.getMyDBList(memberVO.getId());
+		ArrayList<MessageVO> datas = messageDAO.getMyDBList(memberVO.getId());
 		request.setAttribute("datas", datas);
 		pageContext.forward("list.jsp");
 	} else if (action.equals("insert")) { // 게시글 등록
