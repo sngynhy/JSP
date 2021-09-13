@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 방법 2) 외부 파일에 초기화 매개변수 설정하는 방식 -->
+<web-app xmlns:web="http://xmlns.jcp.org/xml/ns/javaee">
+  <context-param>
+    <param-name>name3</param-name>
+    <param-value>ari</param-value>
+  </context-param>
+  <context-param>
+    <param-name>encoding</param-name>
+    <param-value>UTF-8</param-value>
+  </context-param>
+</web-app>
