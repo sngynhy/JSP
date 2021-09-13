@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebFilter;
 // 다국어 처리 필터 생성 - 컨트롤러 작업
 
 @WebFilter("*.jsp") // 모든(*) jsp 파일로 이동하려면 반드시 현재 필터를 거쳐가도록 설정
+// 만약 a.jsp 로 이동할 때 필터를 적용하려면 @WebFilter("a.jsp")로 기재
 public class TestFilter implements Filter {
 
 	private String encoding;
