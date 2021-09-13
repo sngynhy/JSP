@@ -11,7 +11,7 @@
 			for (ProductVO vo : (ArrayList<ProductVO>) datas) {
 				if (vo.getStock()==0) {
 			%>
-				<option value="<%=vo.getPnum()%>" disabled="disabled"><%=vo.getPname()%></option>
+				<option value="<%=vo.getPnum()%>" disabled="disabled"><%=vo.getPname()%></option> <!-- disabled : 비활성 -->
 			<%
 				} else {
 			%>

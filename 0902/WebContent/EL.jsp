@@ -9,7 +9,7 @@
 <body>
 
 	<form method="post" action="EL2.jsp">
-		<jsp:useBean id="dataBean" class="model.DataBean" scope="session" />
+		<jsp:useBean id="dataBean" class="model.message.DataBean" scope="session" />
 		<select name="data">
 			<%
 				for(String v : dataBean.getDataList()) { // DataBean에 저장되어있는 data list 가져오기

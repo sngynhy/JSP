@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="model.message.*, java.util.*"%>
+    pageEncoding="UTF-8" import="model.book.*, java.util.*"%>
 <jsp:useBean id="datas" class="java.util.ArrayList" scope="request" />
 <jsp:useBean id="memberVO" class="model.member.MemberVO" scope="session"/>
 <!-- control에서 넘겨받은 datas는 객체가 ArrayList이고, request에 저장되어있음 -->

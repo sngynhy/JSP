@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resouce-ref>
+	<!-- 웹 애플리케이션에서 참조할 설정들 기술 -->
+	<res-auth>Container</res-auth>
+	<res-type>javax.sql.DataSource</res-type>
+	<res-ref-name>jdbc/orcl</res-ref-name>
+	<!-- Container 권한을 가진 javax.sql.DataSource 타입의 orcl(또는 mysql) 이름의 자원을 참조 -->
+</resouce-ref>

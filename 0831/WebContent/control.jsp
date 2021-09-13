@@ -1,7 +1,9 @@
-<%@page import="java.util.ArrayList, model.message.*, model.member.*"%>
+<%@page import="java.util.ArrayList,model.member.*,model.member.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" errorPage="error.jsp"%>
-<% request.setCharacterEncoding("UTF-8"); %>
+<%
+	request.setCharacterEncoding("UTF-8");
+%>
 <jsp:useBean id="messageDAO" class="model.message.MessageDAO" />
 <jsp:useBean id="messageVO" class="model.message.MessageVO" />
 <jsp:setProperty property="*" name="messageVO" />

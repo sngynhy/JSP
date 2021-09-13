@@ -9,7 +9,7 @@
 <body>
 
 	<form mothod="post" action="ELExample2.jsp">
-		<jsp:useBean id="menuBean" class="model.MenuBean" scope="session" />
+		<jsp:useBean id="menuBean" class="model.message.MenuBean" scope="session" />
 		<select name="menu">
 			<%
 				for (String v : menuBean.getProduct()) {

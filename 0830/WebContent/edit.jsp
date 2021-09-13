@@ -1,8 +1,10 @@
-<%@page import="model.message.*"%>
+<%@page import="model.book.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% request.setCharacterEncoding("UTF-8"); %>
-<jsp:useBean id="data" class="model.message.MessageVO" scope="request"/>
+<%
+	request.setCharacterEncoding("UTF-8");
+%>
+<jsp:useBean id="data" class="model.book.MessageVO" scope="request"/>
 <!DOCTYPE html>
 <html>
 <head>
