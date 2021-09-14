@@ -12,24 +12,66 @@
 <%
 	String action = request.getParameter("action");
  	String url = "control.jsp?action=main";	
-	String mcnt2 = request.getParameter("mcnt");
-	int mcnt = 3;
-	if(mcnt2 != null) {
-		mcnt = Integer.parseInt(mcnt2);
+	String mcntt = request.getParameter("mcnt");
+
+	int mcnt = 0;
+	if(mcntt != null) {
+		mcnt = Integer.parseInt(mcntt);
 	}
 	url = url+ "&mcnt=" + mcnt;
-	String selUser = request.getParameter("selUser");
-	if(selUser != null){
+	String selUser = request.getParameter("selUser"); // 내 글 보기, 검색 시 필요한 변수
+	if(selUser != null){ // 로그인 정보 url에 추가
 		url = url + "&selUser=" + selUser;
 	}
-	if(action.equals("main")){
+	if(action.equals("main")){ // 메인화면 - 게시글 + 댓글 출력
+		/* System.out.println(url); */
 		ArrayList<MsgSet> datas = mDAO.selectAll(selUser, mcnt);
-		/* ArrayList<UserVO> newUsers = uDAO.selectAll(); */
+		ArrayList<UserVO> newUsers = uDAO.selectAll();
 		request.setAttribute("datas", datas);
-		/* request.setAttribute("newUsers", newUsers);
 		request.setAttribute("selUser", selUser);
-		request.setAttribute("mcnt", mcnt); */
-		
+		request.setAttribute("mcnt", mcnt);
 		pageContext.forward("main.jsp");
+	} else if (action.equals("selectAll")) {
+		ArrayList<MsgSet> datas = mDAO.selectAll();
+		ArrayList<UserVO> newUsers = uDAO.selectAll();
+		request.setAttribute("datas", datas);
+		pageContext.forward("main.jsp");
+	} else if (action.equals("login")) { // 로그인
+		if (uDAO.login(uVO)) {
+			session.setAttribute("selUser", uVO.getU_id());
+			/* System.out.println(url); */
+			response.sendRedirect(url);
+		} else {
+			out.println("<script>alert('로그인에 실패!');history.go(-1)</script>");
+		}
+	} else if (action.equals("logout")) { // 로그아웃
+		session.invalidate(); // 데이터 초기화
+		response.sendRedirect("control.jsp?action=main");
+	} else if (action.equals("signup")) { // 회원가입
+		if (uDAO.signup(uVO)) {
+			out.println("<script>alert('회원가입 성공!');</script>");
+			out.println("<script>location.href='control.jsp?action=main';</script>");
+		} else {
+			out.println("<script>alert('회원가입 실패!');history.go(-1)</script>");
+		}
+	} else if (action.equals("MSGinsert")) { // 댓글 등록
+		if (mDAO.MSGinsert(mVO)) {
+			out.println("<script>alert('댓글 등록 성공!');</script>");
+			out.println("<script>location.href='" + url + "';</script>");
+		} else {
+			out.println("<script>alert('댓글 등록 실패!');history.go(-1)</script>");
+		}
+	} else if (action.equals("delete")) { // 댓글 삭제
+		
+	} else if (action.equals("MSGupdate")) { // 댓글 수정
+		
+	} else if (action.equals("RMSGinsert")) { // 댓글 등록
+		
+	} else if (action.equals("RMSGdelete")) { // 댓글 삭제
+		
+	} else if (action.equals("RMSGupdate")) { // 댓글 수정
+		
+	} else {
+		out.println("잘못된 파라미터! " + action);
 	}
 %>

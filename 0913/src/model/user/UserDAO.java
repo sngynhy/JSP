@@ -15,7 +15,7 @@ public class UserDAO {
 	ResultSet rs;
 	
 	// 유저 등록
-	public boolean insert(UserVO invo) {
+	public boolean signup(UserVO invo) {
 		
 		conn = JNDI.getConnection();
 		String sql = "insert into users (u_id, name, pw) values (?,?,?)";
@@ -47,11 +47,11 @@ public class UserDAO {
 			rs = pstmt.executeQuery();
 			rs.next();
 			if (rs.getString("pw").equals(invo.getPw())) {
-				result=true;
+				result = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			return result;
 		}
 		finally {
 			JNDI.Close(conn, pstmt);

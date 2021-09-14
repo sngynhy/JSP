@@ -14,7 +14,7 @@ public class ReplyDAO {
 	ResultSet rs;
 	
 	// ¥Î¥Ò±€ µÓ∑œ
-	public boolean insert(MessageVO invo) {
+	public boolean RMSGinsert(MessageVO invo) {
 		
 		conn = JNDI.getConnection();
 		String sql = "insert into reply (r_id, m_id, u_id, rmsg) values (nvl(0, (select max(r_id) from reply)+1),?,?,?)";
@@ -35,7 +35,7 @@ public class ReplyDAO {
 	}
 	
 	// ¥Î¥Ò±€ ªË¡¶
-	public boolean delete(ReplyVO invo) {
+	public boolean RMSGdelete(ReplyVO invo) {
 		
 		conn = JNDI.getConnection();
 		String sql = "delete from reply where r_id = ?";
