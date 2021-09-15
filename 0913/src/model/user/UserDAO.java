@@ -35,6 +35,34 @@ public class UserDAO {
 		return true;
 	}
 	
+	public boolean checkID(String u_id) {
+		
+		conn = JNDI.getConnection();
+		String sql = "select * from users where u_id = ?";
+		
+		boolean exist = false;
+		try {
+			System.out.println("!!!!");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, u_id);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				System.out.println("@@@@");
+				System.out.println(rs.getString("u_id"));
+				exist = true;
+			}
+			
+			rs.close();
+		} catch(SQLException e) {
+			System.out.println("catch");
+			e.printStackTrace();
+		} finally {
+			JNDI.Close(conn, pstmt);
+		}
+		return exist;
+	}
+	
 	// ·Î±×ÀÎ
 	public boolean login(UserVO invo) {
 		conn = JNDI.getConnection();
@@ -58,25 +86,26 @@ public class UserDAO {
 		}
 		return result;
 	}
+
 	
-	// 
 	public ArrayList<UserVO> selectAll() {
 		
-		ArrayList<UserVO> datas = new ArrayList<UserVO>();
 		conn = JNDI.getConnection();
-		String sql = "select * from users where rownum <= 3 order by udate desc";
+		ArrayList<UserVO> datas = new ArrayList<UserVO>();
 		
+		String sql = "select * from users where rownum <= 3 order by udate desc";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				UserVO data=new UserVO();
+				UserVO data = new UserVO();
 				data.setU_id(rs.getString("u_id"));
 				data.setName(rs.getString("name"));
 				data.setPw(rs.getString("pw"));
-				data.setUdate(rs.getString("udate"));
+				data.setUdate(rs.getDate("udate"));
 				datas.add(data);
 			}
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -85,6 +114,4 @@ public class UserDAO {
 		}
 		return datas;
 	}
-	
-	
 }

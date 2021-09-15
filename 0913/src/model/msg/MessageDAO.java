@@ -25,14 +25,15 @@ public class MessageDAO {
 		try {
 			// 전체 댓글
 			if((u_id == null) || u_id.equals("")) {
-				sql = "select * from messages where rownum <= ? order by m_id asc";
+				sql = "select * from messages where rownum <= ? order by m_id desc";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, cnt);
 			} else { // 특정 회원 댓글 조회
-				sql = "select * from messages where u_id = ? and rownum <= ? order by m_id asc";
+				/*sql = "select * from messages where u_id = ? and rownum <= ? order by m_id desc";*/
+				sql = "select * from messages where u_id = ? order by m_id desc";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, u_id);
-				pstmt.setInt(2, cnt);
+//				pstmt.setInt(2, cnt);
 			}
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -49,7 +50,7 @@ public class MessageDAO {
 				mvo.setMdate(rs.getDate("mdate"));
 				
 				// m_id에 대한 대댓글 정보 저장
-				String rsql = "select * from reply where m_id = ? order by rdate asc";
+				String rsql = "select * from reply where m_id = ? order by rdate desc";
 				pstmt = conn.prepareStatement(rsql);
 				pstmt.setInt(1, rs.getInt("m_id"));
 				ResultSet rrs = pstmt.executeQuery(); // 대댓글의 조회 결과
@@ -90,7 +91,7 @@ public ArrayList<MsgSet> selectAll() {
 		String sql;
 		
 		try {
-			sql = "select * from messages order by mdate asc";
+			sql = "select * from messages order by mdate desc";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -107,7 +108,7 @@ public ArrayList<MsgSet> selectAll() {
 				mvo.setMdate(rs.getDate("mdate"));
 				
 				// m_id에 대한 대댓글 정보 저장
-				String rsql = "select * from reply where m_id = ? order by rdate asc";
+				String rsql = "select * from reply where m_id = ? order by rdate";
 				pstmt = conn.prepareStatement(rsql);
 				pstmt.setInt(1, rs.getInt("m_id"));
 				ResultSet rrs = pstmt.executeQuery(); // 대댓글의 조회 결과
@@ -142,7 +143,7 @@ public ArrayList<MsgSet> selectAll() {
 	
 	// 댓글 등록
 	public boolean MSGinsert(MessageVO invo) {
-		System.out.println("왜안돼");
+		
 		conn = JNDI.getConnection();
 		String sql = "insert into messages (m_id, u_id, msg) values (nvl((select max(m_id) from messages),0)+1,?,?)";
 			
@@ -160,14 +161,30 @@ public ArrayList<MsgSet> selectAll() {
 		return true;
 	}
 	
-	public boolean MSGdelete(MessageVO invo) {
+	public boolean MSGdelete(MessageVO invo) throws SQLException { // 댓글 + 대댓글 삭제 -> 트랜잭션
+
 		conn = JNDI.getConnection();
-		String sql = "delete from messages where m_id = ?";
+		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			conn.setAutoCommit(false);
+			
+			String rmsg_sql = "delete from reply where m_id = ?";
+			pstmt = conn.prepareStatement(rmsg_sql);
 			pstmt.setInt(1, invo.getM_id());
 			pstmt.executeUpdate();
+					
+			String msg_sql = "delete from messages where m_id = ?";
+			pstmt = conn.prepareStatement(msg_sql);
+			pstmt.setInt(1, invo.getM_id());
+			if (pstmt.executeUpdate() == 0) {
+				conn.rollback();
+				return false;
+			}
+			
+			conn.commit();
+			conn.setAutoCommit(true);
 		} catch (SQLException e) {
+			conn.rollback();
 			e.printStackTrace();
 			return false;
 		}

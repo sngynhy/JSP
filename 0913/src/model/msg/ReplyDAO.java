@@ -14,16 +14,16 @@ public class ReplyDAO {
 	ResultSet rs;
 	
 	// ´ë´ñ±Û µî·Ï
-	public boolean RMSGinsert(MessageVO invo) {
+	public boolean RMSGinsert(ReplyVO invo) {
 		
 		conn = JNDI.getConnection();
-		String sql = "insert into reply (r_id, m_id, u_id, rmsg) values (nvl(0, (select max(r_id) from reply)+1),?,?,?)";
-			
+		String sql = "insert into reply (r_id, m_id, u_id, rmsg) values (nvl((select max(r_id) from reply),0)+1,?,?,?)";
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, invo.getM_id());
 			pstmt.setString(2, invo.getU_id());
-			pstmt.setString(3, invo.getMsg());
+			pstmt.setString(3, invo.getRmsg());
 			pstmt.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();

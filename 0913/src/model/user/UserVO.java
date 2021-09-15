@@ -1,10 +1,12 @@
 package model.user;
 
+import java.sql.Date;
+
 public class UserVO {
 	private String u_id;
 	private String name;
 	private String pw;
-	private String udate;
+	private Date udate;
 	
 	public String getU_id() {
 		return u_id;
@@ -24,10 +26,10 @@ public class UserVO {
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
-	public String getUdate() {
+	public Date getUdate() {
 		return udate;
 	}
-	public void setUdate(String udate) {
+	public void setUdate(Date udate) {
 		this.udate = udate;
 	}
 	
