@@ -26,7 +26,6 @@ public class JNDI {
 	}
 	
 	public static void Close(Connection conn, PreparedStatement pstmt) {
-		
 		try {
 			if (pstmt != null) pstmt.close();
 			if (conn != null) conn.close();

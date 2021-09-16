@@ -88,12 +88,12 @@ public class UserDAO {
 	}
 
 	
-	public ArrayList<UserVO> selectAll() {
+	public ArrayList<UserVO> selectAll() { // 신규 회원 3명까지 조회
 		
 		conn = JNDI.getConnection();
 		ArrayList<UserVO> datas = new ArrayList<UserVO>();
 		
-		String sql = "select * from users where rownum <= 3 order by udate desc";
+		String sql = "select * from (select * from users order by udate desc) where rownum <= 3";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();

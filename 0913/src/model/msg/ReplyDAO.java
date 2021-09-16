@@ -14,18 +14,34 @@ public class ReplyDAO {
 	ResultSet rs;
 	
 	// ´ë´ñ±Û µî·Ï
-	public boolean RMSGinsert(ReplyVO invo) {
+	public boolean RMSGinsert(ReplyVO invo) throws SQLException {
 		
 		conn = JNDI.getConnection();
-		String sql = "insert into reply (r_id, m_id, u_id, rmsg) values (nvl((select max(r_id) from reply),0)+1,?,?,?)";
-
+		String insert_sql = "insert into reply (r_id, m_id, u_id, rmsg) values (nvl((select max(r_id) from reply),0)+1,?,?,?)";
+		String update_sql = "update messages set REPLYCOUNT = REPLYCOUNT + 1 where m_id = ?";
+		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(insert_sql);
 			pstmt.setInt(1, invo.getM_id());
 			pstmt.setString(2, invo.getU_id());
 			pstmt.setString(3, invo.getRmsg());
-			pstmt.executeUpdate();
+			if (pstmt.executeUpdate() == 0) {
+				conn.rollback();
+				return false;
+			}
+			
+			pstmt = conn.prepareStatement(update_sql);
+			pstmt.setInt(1, invo.getM_id());
+			if (pstmt.executeUpdate() == 0) {
+				conn.rollback();
+				return false;
+			}
+			
+			conn.commit();
+			conn.setAutoCommit(true);
 		} catch(SQLException e) {
+			conn.rollback();
 			e.printStackTrace();
 			return false;
 		} finally {

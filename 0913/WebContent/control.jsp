@@ -13,7 +13,6 @@
 	String action = request.getParameter("action");
  	String url = "control.jsp?";	
 	String mcntt = request.getParameter("mcnt");
-
 	int mcnt = 0;
 	if(mcntt != null) {
 		if (mcntt.equals("")){
@@ -28,22 +27,18 @@
 	if(selUser != null){ // 로그인 정보 url에 추가
 		url = url + "&selUser=" + selUser;
 	}
+	
 	if(action.equals("main")){ // 메인화면 - 게시글 + 댓글 출력
 		ArrayList<MsgSet> datas = mDAO.selectAll(selUser, mcnt);
-		ArrayList<UserVO> newUsers = uDAO.selectAll();
+		ArrayList<UserVO> newUsers = uDAO.selectAll(); // 신규 회원 목록
 		request.setAttribute("datas", datas);
-		request.setAttribute("newUsers", newUsers);
+		request.setAttribute("newUsers", newUsers); // 신규 회원
 		request.setAttribute("selUser", selUser);
 		request.setAttribute("mcnt", mcnt);
 		pageContext.forward("main.jsp");
-	} else if (action.equals("selectAll")) {
-		ArrayList<MsgSet> datas = mDAO.selectAll();
-		ArrayList<UserVO> newUsers = uDAO.selectAll();
-		request.setAttribute("datas", datas);
-		pageContext.forward("main.jsp");
 	} else if (action.equals("login")) { // 로그인
 		if (uDAO.login(uVO)) {
-			session.setAttribute("selUser", uVO.getU_id());
+			session.setAttribute("sssUser", uVO.getU_id());
 			/* System.out.println(url); */
 			response.sendRedirect(url);
 		} else {
@@ -90,6 +85,12 @@
 			response.sendRedirect(url);
 		} else {
 			out.println("<script>alert('댓글 삭제 실패!');history.go(-1)</script>");
+		}
+	} else if (action.equals("favcount")) { // 좋아요 +1
+		if (mDAO.favCount(mVO)) {
+			response.sendRedirect(url);
+		} else {
+			out.println("<script>alert('좋아요 실패!');history.go(-1)</script>");
 		}
 	} else {
 		out.println("잘못된 파라미터! " + action);

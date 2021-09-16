@@ -4,6 +4,6 @@
 <%@ attribute name="r_id" %>
 <%@ attribute name="u_id" %>
 
-<c:if test="${selUser == u_id}">
+<c:if test="${sssUser == u_id}">
 	<a href="control.jsp?action=deleteRMSG&r_id=${r_id}&mcnt=${mcnt}">삭제</a>
 </c:if>

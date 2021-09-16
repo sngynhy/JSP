@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/main.css" />
 <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 	function signup() {
@@ -14,19 +15,34 @@
 	}
 	$(document).ready(function() {
 		$(".msg").click(function() {
-			$(this).closest('h3').siblings('span').slideToggle(); // siblings() : 형제 노드 찾기 - ()안에는 태그, id, class 모두 사용 가능
+			$(this).closest('h4').siblings('span').slideToggle(); // siblings() : 형제 노드 찾기 - ()안에는 태그, id, class 모두 사용 가능
 		}); // closest() : 가장 가까운 h3 태그, parents() : 바로 상위 태그
 	});
+	$.ajax({
+		type: "GET",
+		url: "data.json",
+		dataType: "json",
+		success: function(data) {
+			var str = '';
+			$.each(data, function(index, obj){
+				str += '<a href="' + obj.link + '" target="_blank"><img src="img/' + obj.imgFileL + '" alt="' + obj.item + '"></a><br>';
+			});
+			$('.ad').append(str);
+		},
+		error: function() {
+			alert("에러 발생!");
+		}
+	})
 </script>
 </head>
 <body>
-
-	<h2>
+<header>
+	<h1>
 		<a href="control.jsp?action=main">메인로고</a>
-	</h2>
+	</h1>
+</header>
 
-	<hr>
-
+<section>
 	<h2>댓글 목록</h2>
 	<c:forEach var="v" items="${datas}">
 		<c:set var="m" value="${v.message}" />
@@ -34,15 +50,17 @@
 			<div>
 				<form action="control.jsp" method="post">
 					<input type="hidden" name="action" value="insertRMSG">
-					<input type="hidden" name="u_id" value="${selUser}">
+					<input type="hidden" name="u_id" value="${sssUser}">
 					<input type="hidden" name="m_id" value="${m.m_id}">
 					<input type="hidden" name="mcnt" value="${mcnt}">
-					<h3>
-						<span class="msg">${m.u_id}&gt;&gt; ${m.msg} [좋아요 ${m.favcount} | 댓글 ${m.replycount} | ${m.mdate}]</span> 
+					<h4>
+						<span class="msg">${m.u_id}&gt;&gt; ${m.msg} [좋아요 ${m.favcount} | 댓글 ${m.replycount} | ${m.mdate}] </span>
+						<a href="control.jsp?action=favcount&m_id=${m.m_id}&mcnt=${mcnt}" color="red">♥</a> 
 						<mytag:msgdelete m_id="${m.m_id}" u_id="${m.u_id}"/>
-					</h3> 
-					<span style="display: none"><input type="text" name="rmsg"
-						style="width: 261px;" placeholder="댓글을 입력하세요."> <input type="submit" value="댓글달기"></span>
+					</h4> 
+					<span style="display: none">
+						<input type="text" name="rmsg" style="width: 261px;" placeholder="댓글을 입력하세요."> <input type="submit" value="댓글달기">
+					</span>
 				<!-- </form> -->
 				<ol>
 					<c:forEach var="r" items="${v.rlist}">
@@ -57,10 +75,8 @@
 	<a href="control.jsp?action=main&mcnt=${mcnt+1}" id="moreview">댓글
 		더보기</a>
 	<br>
-	<a href="control.jsp?action=selectAll" id="allview">전체 댓글 보기</a>
+	<a href="control.jsp?action=main&mcnt=20" id="allview">전체 댓글 보기</a>
 	<br>
-
-	<hr>
 
 	<c:if test="${selUser != null}">
 		<form action="control.jsp" method="post">
@@ -74,6 +90,18 @@
 	</c:if>
 
 	<mytag:login />
-
+	
+	
+	<h4>신규 회원 목록</h4>
+	<ol>
+		<c:forEach var="v" items="${newUsers}">
+			<li><a href="control.jsp?action=main&selUser=${v.u_id}">${v.u_id}[${v.name}]</a>님 가입완료</li>
+		</c:forEach>
+	</ol>
+	
+</section>
+<aside>
+	<div class="ad"></div>
+</aside>
 </body>
 </html>
