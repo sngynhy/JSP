@@ -51,11 +51,12 @@
 				<form action="control.jsp" method="post">
 					<input type="hidden" name="action" value="insertRMSG">
 					<input type="hidden" name="u_id" value="${sssUser}">
+					<input type="hidden" name="selUser" value="${selUser}">
 					<input type="hidden" name="m_id" value="${m.m_id}">
 					<input type="hidden" name="mcnt" value="${mcnt}">
 					<h4>
-						<span class="msg">${m.u_id}&gt;&gt; ${m.msg} [좋아요 ${m.favcount} | 댓글 ${m.replycount} | ${m.mdate}] </span>
-						<a href="control.jsp?action=favcount&m_id=${m.m_id}&mcnt=${mcnt}" color="red">♥</a> 
+						<span class="msg">${m.u_id} &gt;&gt; ${m.msg} [좋아요 ${m.favcount} | 댓글 ${m.replycount} | ${m.mdate}] </span>
+						<a href="control.jsp?action=favcount&m_id=${m.m_id}&mcnt=${mcnt}&selUser=${selUser}" color="red">♥</a> 
 						<mytag:msgdelete m_id="${m.m_id}" u_id="${m.u_id}"/>
 					</h4> 
 					<span style="display: none">
@@ -95,7 +96,7 @@
 	<h4>신규 회원 목록</h4>
 	<ol>
 		<c:forEach var="v" items="${newUsers}">
-			<li><a href="control.jsp?action=main&selUser=${v.u_id}">${v.u_id}[${v.name}]</a>님 가입완료</li>
+			<li><a href="control.jsp?action=main&selUser=${v.u_id}&mcnt=${mcnt}">${v.u_id}[${v.name}]</a>님 가입완료</li>
 		</c:forEach>
 	</ol>
 	

@@ -11,17 +11,13 @@
 <jsp:setProperty property="*" name="uVO"/>
 <%
 	String action = request.getParameter("action");
- 	String url = "control.jsp?";	
+ 	String url = "control.jsp?action=main";	
 	String mcntt = request.getParameter("mcnt");
 	int mcnt = 0;
 	if(mcntt != null) {
-		if (mcntt.equals("")){
-			url = url + "&action=selectAll";			
-		} else {
-			mcnt = Integer.parseInt(mcntt);
-			url = url + "&action=main&mcnt=" + mcnt;
-		}
+		mcnt = Integer.parseInt(mcntt);
 	}
+	url= url+ "&mcnt="+mcnt;
 	
 	String selUser = request.getParameter("selUser"); // 내 글 보기, 검색 시 필요한 변수
 	if(selUser != null){ // 로그인 정보 url에 추가
@@ -38,7 +34,7 @@
 		pageContext.forward("main.jsp");
 	} else if (action.equals("login")) { // 로그인
 		if (uDAO.login(uVO)) {
-			session.setAttribute("sssUser", uVO.getU_id());
+			session.setAttribute("sssUser", uVO.getU_id()); // 로그인 아이디 세션단위로 저장 sssUser
 			/* System.out.println(url); */
 			response.sendRedirect(url);
 		} else {
@@ -69,7 +65,6 @@
 		}
 	} else if (action.equals("deleteMSG")) { // 댓글 삭제
 		if (mDAO.MSGdelete(mVO)) {
-			System.out.println("삭제됐다");
 			response.sendRedirect(url);
 		} else {
 			out.println("<script>alert('댓글 삭제 실패!');history.go(-1)</script>");

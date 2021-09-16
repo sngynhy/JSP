@@ -3,7 +3,8 @@
 <%-- 전달할 데이터는 attribute로 받아오기 --%>
 <%@ attribute name="m_id" %>
 <%@ attribute name="u_id" %>
+<%@ attribute name="selUser" %>
 
 <c:if test="${sssUser == u_id}">
-	<a href="control.jsp?action=deleteMSG&m_id=${m_id}&mcnt=${mcnt}">삭제</a>
+	<a href="control.jsp?action=deleteMSG&m_id=${m_id}&mcnt=${mcnt}&selUser=${selUser}">삭제</a>
 </c:if>

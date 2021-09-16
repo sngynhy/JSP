@@ -28,6 +28,7 @@ public class ReplyDAO {
 			pstmt.setString(3, invo.getRmsg());
 			if (pstmt.executeUpdate() == 0) {
 				conn.rollback();
+				conn.setAutoCommit(true);
 				return false;
 			}
 			
@@ -35,6 +36,7 @@ public class ReplyDAO {
 			pstmt.setInt(1, invo.getM_id());
 			if (pstmt.executeUpdate() == 0) {
 				conn.rollback();
+				conn.setAutoCommit(true);
 				return false;
 			}
 			
@@ -43,6 +45,7 @@ public class ReplyDAO {
 		} catch(SQLException e) {
 			conn.rollback();
 			e.printStackTrace();
+			conn.setAutoCommit(true);
 			return false;
 		} finally {
 			JNDI.Close(conn, pstmt);

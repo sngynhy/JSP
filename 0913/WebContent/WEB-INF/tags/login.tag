@@ -5,9 +5,9 @@
 	<c:when test="${empty sssUser}"> <!-- 로그아웃 상태 -->
 		<input type="hidden" name="action" value="login">
 		<input type="hidden" name="mcnt" value="${mcnt}">
-		<input type="text" name="u_id">
-		<input type="password" name="pw">
-		<input type="submit" value="로그인">
+			<input type="text" name="u_id">
+			<input type="password" name="pw">
+			<input type="submit" value="로그인">
 		<hr>
 		<a href="javascript:void(0);" onclick="signup()">회원가입</a> <!-- window.open으로 처리 -->
 		<hr>
