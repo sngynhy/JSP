@@ -39,7 +39,6 @@ public class ReplyDAO {
 			}
 			
 			conn.commit();
-			conn.setAutoCommit(true);
 		} catch(SQLException e) {
 			conn.rollback();
 			e.printStackTrace();
@@ -51,16 +50,31 @@ public class ReplyDAO {
 	}
 	
 	// ¥Î¥Ò±€ ªË¡¶
-	public boolean RMSGdelete(ReplyVO invo) {
+	public boolean RMSGdelete(ReplyVO invo) throws SQLException {
 		
 		conn = JNDI.getConnection();
-		String sql = "delete from reply where r_id = ?";
+		String delete_sql = "delete from reply where r_id = ?";
+		String update_sql = "update messages set REPLYCOUNT = REPLYCOUNT - 1 where m_id = ?";
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(delete_sql);
 			pstmt.setInt(1, invo.getR_id());
-			pstmt.executeUpdate();
+			if (pstmt.executeUpdate() == 0) {
+				conn.rollback();
+				return false;
+			}
+			
+			pstmt = conn.prepareStatement(update_sql);
+			pstmt.setInt(1, invo.getM_id());
+			if (pstmt.executeUpdate() == 0) {
+				conn.rollback();
+				return false;
+			}
+			
+			conn.commit();
 		} catch (SQLException e) {
+			conn.rollback();
 			e.printStackTrace();
 			return false;
 		} finally {

@@ -42,13 +42,11 @@ public class UserDAO {
 		
 		boolean exist = false;
 		try {
-			System.out.println("!!!!");
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, u_id);
 			
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				System.out.println("@@@@");
 				System.out.println(rs.getString("u_id"));
 				exist = true;
 			}

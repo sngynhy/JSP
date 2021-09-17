@@ -1,0 +1,17 @@
+@charset "UTF-8";
+@import
+	url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+section {
+	float: left;
+	width: 80%;
+}
+a {
+	text-decoration: none;
+}
+aside {
+	float: right;
+	width: 20%;
+}
+.ad img {
+	width: 80%;
+}
