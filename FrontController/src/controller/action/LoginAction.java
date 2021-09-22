@@ -30,8 +30,6 @@ public class LoginAction implements Action{
 		uVO.setU_id(request.getParameter("u_id"));
 		uVO.setPw(request.getParameter("pw"));
 		
-		request.setAttribute("mcnt", request.getParameter("mcnt"));
-		
 		if (uDAO.login(uVO)) { // 로그인 성공 시
 			HttpSession session = request.getSession(); // 세션을 사용하기 위해 세션 얻어오기
 			session.setAttribute("sssUser", uVO.getU_id());

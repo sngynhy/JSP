@@ -57,10 +57,12 @@
 						<span class="msg">${m.u_id} &gt;&gt; ${m.msg} [좋아요 ${m.favcount} | 댓글 ${m.replycount} | ${m.mdate}] </span>
 						<a href="favcount.do?m_id=${m.m_id}&mcnt=${mcnt}&selUser=${selUser}" color="red">❤</a> 
 						<mytag:msgdelete m_id="${m.m_id}" u_id="${m.u_id}"/>
-					</h4> 
-					<span style="display: none">
-						<input type="text" name="rmsg" style="width: 261px;" placeholder="댓글을 입력하세요."> <input type="submit" value="댓글달기">
-					</span>
+					</h4>
+					<c:if test="${sssUser != null}">
+						<span style="display: none">
+							<input type="text" name="rmsg" style="width: 261px;" placeholder="댓글을 입력하세요."> <input type="submit" value="댓글달기">
+						</span>
+					</c:if>
 				<ol>
 					<c:forEach var="r" items="${v.rlist}">
 						<li>${r.u_id}>> ${r.rmsg} [${r.rdate}] <mytag:rmsgdelete r_id="${r.r_id}" u_id="${r.u_id}" m_id="${r.m_id}"/> </li>

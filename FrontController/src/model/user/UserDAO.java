@@ -46,7 +46,7 @@ public class UserDAO {
 			pstmt.setString(1, u_id);
 			
 			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
 				System.out.println(rs.getString("u_id"));
 				exist = true;
 			}
